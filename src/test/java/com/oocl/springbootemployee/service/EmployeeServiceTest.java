@@ -47,7 +47,6 @@ class EmployeeServiceTest {
         //given
         Employee lucy = new Employee(1, "Lucy", 18, Gender.FEMALE, 8000.0);
         when(mockedEmployeeInMemoryRepository.create(any())).thenReturn(lucy);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeInMemoryRepository, mockedEmployeeRepository);
 
         //when
         Employee createdEmployee = employeeService.create(lucy);
@@ -60,24 +59,21 @@ class EmployeeServiceTest {
     void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_17() {
         //given
         Employee kitty = new Employee(1, "Kitty", 6, Gender.FEMALE, 8000.0);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeInMemoryRepository, mockedEmployeeRepository);
         //when
         //then
         assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
         verify(mockedEmployeeInMemoryRepository, never()).create(any());
     }
-//
-//    @Test
-//    void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_66() {
-//        //given
-//        EmployeeInMemoryRepository mockedEmployeeInMemoryRepository = mock(EmployeeInMemoryRepository.class);
-//        Employee kitty = new Employee(1, "Kitty", 66, Gender.FEMALE, 8000.0);
-//        EmployeeService employeeService = new EmployeeService(mockedEmployeeInMemoryRepository);
-//        //when
-//        //then
-//        assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
-//        verify(mockedEmployeeInMemoryRepository, never()).create(any());
-//    }
+
+    @Test
+    void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_66() {
+        //given
+        Employee kitty = new Employee(1, "Kitty", 66, Gender.FEMALE, 8000.0);
+        //when
+        //then
+        assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
+        verify(mockedEmployeeInMemoryRepository, never()).create(any());
+    }
 //
 //    @Test
 //    void should_created_employee_active_when_create_employee() {
