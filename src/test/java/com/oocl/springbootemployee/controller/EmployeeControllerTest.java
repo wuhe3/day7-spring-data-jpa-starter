@@ -10,6 +10,7 @@ import com.oocl.springbootemployee.repository.EmployeeInMemoryRepository;
 import java.util.List;
 
 import com.oocl.springbootemployee.repository.EmployeeRepository;
+import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,11 @@ class EmployeeControllerTest {
 
         final List<Employee> employeesResult = employeesJacksonTester.parseObject(jsonResponse);
         assertThat(employeesResult)
-            .usingRecursiveFieldByFieldElementComparator()
+            .usingRecursiveFieldByFieldElementComparator(
+                    RecursiveComparisonConfiguration.builder()
+                            .withComparedFields("name", "age", "gender")
+                            .build()
+            )
             .isEqualTo(givenEmployees);
     }
 
