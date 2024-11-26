@@ -7,6 +7,7 @@ import com.oocl.springbootemployee.model.Employee;
 import com.oocl.springbootemployee.model.Gender;
 import com.oocl.springbootemployee.repository.EmployeeInMemoryRepository;
 import java.util.List;
+import java.util.Optional;
 
 import com.oocl.springbootemployee.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class EmployeeService {
     private final EmployeeInMemoryRepository employeeInMemoryRepository;
 
     private final EmployeeRepository employeeRepository;
+
     public EmployeeService(EmployeeInMemoryRepository employeeInMemoryRepository, EmployeeRepository employeeRepository) {
         this.employeeInMemoryRepository = employeeInMemoryRepository;
         this.employeeRepository = employeeRepository;
@@ -25,7 +27,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findAll(Gender gender) {
-        return employeeInMemoryRepository.findAllByGender(gender);
+        return employeeRepository.getAllByGender(gender);
     }
 
     public List<Employee> findAll(Integer page, Integer pageSize) {
@@ -33,9 +35,8 @@ public class EmployeeService {
     }
 
     public Employee findById(Integer employeeId) {
-        return employeeInMemoryRepository.findById(employeeId);
+        return employeeRepository.findById(employeeId).orElse(null);
     }
-
     public Employee create(Employee employee) {
         if(employee.getAge() < 18 || employee.getAge() > 65)
             throw new EmployeeAgeNotValidException();
