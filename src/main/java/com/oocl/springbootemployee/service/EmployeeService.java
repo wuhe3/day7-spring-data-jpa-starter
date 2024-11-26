@@ -9,8 +9,11 @@ import com.oocl.springbootemployee.repository.EmployeeInMemoryRepository;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.oocl.springbootemployee.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 @Service
 public class EmployeeService {
@@ -32,7 +35,10 @@ public class EmployeeService {
     }
 
     public List<Employee> findAll(Integer page, Integer pageSize) {
-        return employeeInMemoryRepository.findAllByPage(page, pageSize);
+        final Page<Employee> pageResult = employeeRepository.findAll(PageRequest.of(page - 1, pageSize));
+        return pageResult.stream()
+                .collect(Collectors.toList());
+//        return employeeInMemoryRepository.findAllByPage(page, pageSize);
     }
 
     public Employee findById(Integer employeeId) {
@@ -57,6 +63,6 @@ public class EmployeeService {
     }
 
     public void delete(Integer employeeId) {
-        employeeInMemoryRepository.deleteById(employeeId);
+        employeeRepository.deleteById(employeeId);
     }
 }
