@@ -156,44 +156,8 @@ class EmployeeControllerTest {
         assertThat(employees.get(0).getGender()).isEqualTo(givenGender);
         assertThat(employees.get(0).getSalary()).isEqualTo(givenSalary);
     }
-//
-//    @Test
-//    void should_update_employee_success() throws Exception {
-//        // Given
-//        Integer givenId = 1;
-//        String givenName = "New Employee";
-//        Integer givenAge = 30;
-//        Gender givenGender = Gender.FEMALE;
-//        Double givenSalary = 5432.0;
-//        String givenEmployee = String.format(
-//            "{\"id\": %s, \"name\": \"%s\", \"age\": \"%s\", \"gender\": \"%s\", \"salary\": \"%s\"}",
-//            givenId,
-//            givenName,
-//            givenAge,
-//            givenGender,
-//            givenSalary
-//        );
-//
-//        // When
-//        // Then
-//        client.perform(MockMvcRequestBuilders.put("/employees/" + givenId)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(givenEmployee)
-//            )
-//            .andExpect(MockMvcResultMatchers.status().isOk())
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(givenName))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(givenAge))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(givenGender.name()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(givenSalary));
-//        List<Employee> employees = employeeInMemoryRepository.findAll();
-//        assertThat(employees).hasSize(5);
-//        assertThat(employees.get(0).getId()).isEqualTo(1);
-//        assertThat(employees.get(0).getName()).isEqualTo(givenName);
-//        assertThat(employees.get(0).getAge()).isEqualTo(givenAge);
-//        assertThat(employees.get(0).getGender()).isEqualTo(givenGender);
-//        assertThat(employees.get(0).getSalary()).isEqualTo(givenSalary);
-//    }
+
+    // Given
 //
 //    @Test
 //    void should_remove_employee_success() throws Exception {

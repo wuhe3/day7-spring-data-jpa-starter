@@ -7,6 +7,7 @@ import com.oocl.springbootemployee.model.Employee;
 import com.oocl.springbootemployee.model.Gender;
 import com.oocl.springbootemployee.repository.EmployeeInMemoryRepository;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.oocl.springbootemployee.repository.EmployeeRepository;
@@ -48,11 +49,11 @@ public class EmployeeService {
     }
 
     public Employee update(Integer employeeId , Employee employee) {
-        Employee employeeExisted = employeeInMemoryRepository.findById(employeeId);
-        if(!employeeExisted.getActive())
+        Employee employeeExisted = employeeRepository.findById(employeeId).orElse(null);
+        if(!Objects.requireNonNull(employeeExisted).getActive())
             throw new EmployeeInactiveException();
-
-        return employeeInMemoryRepository.update(employeeId, employee);
+        employee.setId(employeeId);
+        return employeeRepository.save(employee);
     }
 
     public void delete(Integer employeeId) {
