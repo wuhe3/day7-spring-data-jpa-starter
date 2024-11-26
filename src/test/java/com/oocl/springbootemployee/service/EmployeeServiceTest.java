@@ -1,5 +1,6 @@
 package com.oocl.springbootemployee.service;
 
+import com.oocl.springbootemployee.exception.EmployeeAgeNotValidException;
 import com.oocl.springbootemployee.model.Employee;
 import com.oocl.springbootemployee.model.Gender;
 import com.oocl.springbootemployee.repository.EmployeeInMemoryRepository;
@@ -13,8 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
@@ -54,18 +56,16 @@ class EmployeeServiceTest {
         assertEquals("Lucy", createdEmployee.getName());
     }
 
-//
-//    @Test
-//    void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_17() {
-//        //given
-//        EmployeeInMemoryRepository mockedEmployeeInMemoryRepository = mock(EmployeeInMemoryRepository.class);
-//        Employee kitty = new Employee(1, "Kitty", 6, Gender.FEMALE, 8000.0);
-//        EmployeeService employeeService = new EmployeeService(mockedEmployeeInMemoryRepository);
-//        //when
-//        //then
-//        assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
-//        verify(mockedEmployeeInMemoryRepository, never()).create(any());
-//    }
+    @Test
+    void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_17() {
+        //given
+        Employee kitty = new Employee(1, "Kitty", 6, Gender.FEMALE, 8000.0);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeInMemoryRepository, mockedEmployeeRepository);
+        //when
+        //then
+        assertThrows(EmployeeAgeNotValidException.class, () -> employeeService.create(kitty));
+        verify(mockedEmployeeInMemoryRepository, never()).create(any());
+    }
 //
 //    @Test
 //    void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_66() {
