@@ -173,24 +173,23 @@ class EmployeeControllerTest {
         assertThat(employees.stream().noneMatch(employee -> employee.getId().equals(givenId))).isTrue();
     }
 
-//
-//    @Test
-//    void should_return_employees_when_get_by_pageable() throws Exception {
-//        //given
-//        final List<Employee> givenEmployees = employeeInMemoryRepository.findAll();
-//
-//        //when
-//        //then
-//        client.perform(MockMvcRequestBuilders.get("/employees")
-//                .param("pageIndex", "2")
-//                .param("pageSize", "2"))
-//            .andExpect(MockMvcResultMatchers.status().isOk())
-//            .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(givenEmployees.get(2).getId()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(givenEmployees.get(3).getId()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(givenEmployees.get(2).getName()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(givenEmployees.get(2).getAge()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(givenEmployees.get(2).getGender().name()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(givenEmployees.get(2).getSalary()));
-//    }
+    @Test
+    void should_return_employees_when_get_by_pageable() throws Exception {
+        //given
+        final List<Employee> givenEmployees = employeeRepository.findAll();
+
+        //when
+        //then
+        client.perform(MockMvcRequestBuilders.get("/employees")
+                .param("pageIndex", "2")
+                .param("pageSize", "2"))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(givenEmployees.get(2).getId()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(givenEmployees.get(3).getId()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(givenEmployees.get(2).getName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(givenEmployees.get(2).getAge()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(givenEmployees.get(2).getGender().name()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(givenEmployees.get(2).getSalary()));
+    }
 }
