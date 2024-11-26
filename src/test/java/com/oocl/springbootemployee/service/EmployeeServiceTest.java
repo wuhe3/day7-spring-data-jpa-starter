@@ -1,6 +1,7 @@
 package com.oocl.springbootemployee.service;
 
 import com.oocl.springbootemployee.exception.EmployeeAgeNotValidException;
+import com.oocl.springbootemployee.exception.EmployeeAgeSalaryNotMatchedException;
 import com.oocl.springbootemployee.model.Employee;
 import com.oocl.springbootemployee.model.Gender;
 import com.oocl.springbootemployee.repository.EmployeeInMemoryRepository;
@@ -84,18 +85,18 @@ class EmployeeServiceTest {
         /* then */
         verify(mockedEmployeeRepository).save(argThat(Employee::getActive));
     }
-//
-//    @Test
-//    void should_throw_EmployeeAgeSalaryNotMatchedException_when_save_given_a_employee_with_age_over_30_and_salary_below_20K() {
-//        //given
+
+    @Test
+    void should_throw_EmployeeAgeSalaryNotMatchedException_when_save_given_a_employee_with_age_over_30_and_salary_below_20K() {
+        //given
 //        EmployeeInMemoryRepository mockedEmployeeInMemoryRepository = mock(EmployeeInMemoryRepository.class);
-//        Employee bob = new Employee(1, "Bob", 31, Gender.FEMALE, 8000.0);
+        Employee bob = new Employee(1, "Bob", 31, Gender.FEMALE, 8000.0);
 //        EmployeeService employeeService = new EmployeeService(mockedEmployeeInMemoryRepository);
-//        //when
-//        //then
-//        assertThrows(EmployeeAgeSalaryNotMatchedException.class, () -> employeeService.create(bob));
-//        verify(mockedEmployeeInMemoryRepository, never()).create(any());
-//    }
+        //when
+        //then
+        assertThrows(EmployeeAgeSalaryNotMatchedException.class, () -> employeeService.create(bob));
+        verify(mockedEmployeeRepository, never()).save(any());
+    }
 //
 //    @Test
 //    void should_throw_EmployeeInactiveException_when_update_inactive_employee() {
