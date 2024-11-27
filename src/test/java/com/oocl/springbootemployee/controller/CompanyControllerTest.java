@@ -103,11 +103,11 @@ class CompanyControllerTest {
     @Test
     void should_return_paged_companies_when_get_by_page_params() throws Exception {
         // Given
-        var pageIndex = 3;
+        var pageIndex = 2;
         var pageSize = 2;
 
         // When & Then
-        client.perform(MockMvcRequestBuilders.get(String.format("/companies?pageIndex=%s&pageSize=%s", pageIndex, pageSize)))
+        client.perform(MockMvcRequestBuilders.get(String.format("/companies?pageIndex=%s&pageSize=%s", pageIndex + 1, pageSize)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(nexus_industries.getId()))

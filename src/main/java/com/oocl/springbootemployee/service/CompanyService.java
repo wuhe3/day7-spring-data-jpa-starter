@@ -6,7 +6,6 @@ import com.oocl.springbootemployee.repository.CompanyRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,15 +21,7 @@ public class CompanyService {
     }
 
     public List<Company> findAll(int pageIndex, int pageSize) {
-        List<Company> allCompanies = companyRepository.findAll();
-        int startIndex = (pageIndex - 1) * pageSize;
-
-        if (startIndex >= allCompanies.size()) {
-            return Collections.emptyList();
-        }
-
-        int endIndex = Math.min(startIndex + pageSize, allCompanies.size());
-        return allCompanies.subList(startIndex, endIndex);
+        return companyRepository.findAll(PageRequest.of(pageIndex - 1, pageSize)).getContent();
     }
 
     public Company findById(Integer id) {
